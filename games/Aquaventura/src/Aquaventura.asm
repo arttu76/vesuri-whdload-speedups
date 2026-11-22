@@ -6,7 +6,7 @@
 
 ;DEBUG
 
-	INCDIR	SOURCES:Include/
+;	INCDIR	SOURCES:Include/	; vasm: the build passes the include paths
 	INCLUDE	whdload.i
 
 _base		SLAVE_HEADER			;ws_Security + ws_ID

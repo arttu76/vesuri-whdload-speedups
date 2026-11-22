@@ -1,0 +1,34 @@
+Short : HD-Installer for Aquaventura V1.3
+Type : game/patch
+Author : Bored Seal, StingRay
+
+This patch applies to "Aquaventura" by Psygnosis (c) 1992 - 2 disks.
+Slave requires WHDLOAD V10+, install requires RawDIC.
+Game requires 0.5 MB Chip RAM (+ 2.0 MB other RAM for PRELOAD option)
+
+FEATURES:
+- Full load from HD
+- Copy/Disk protection removed
+- ButtonWait tooltype added for title picture and Psygnosis logo
+- NI/ROM icon (created by JHZ)
+- Quit option (your default key)
+
+HISTORY:
+V1.0 (13-Aug-2000) - first public release
+V1.1 (22-Oct-2000) - CACR operation removed (thanks to Mr.Larmer for report)
+V1.2 (29-Jun-2006) - disk access removed (2x), taglist termination fixed to
+                     work with WHDLoad v16.6
+V1.3 (22-Dec-2016) - 68000 quitkey support
+ done by StingRay  - default quitkey changed to Del (F10 used to enable cheat)
+		   - WHDLoad v17+ features used (config)
+		   - new install script
+CHEAT:
+- At the option screen press CTRL, F10 and joystick button at one moment.
+  You got infinite energy and you can use 'L' and 'T' for skip level or
+  tunnel sections.
+
+Thanks go to - Chris Vella for disk images
+             - Mr.Larmer for his Amnios sources
+
+         Bug report form, full WHDLoad package and other installs:
+                          http://www.whdload.de

@@ -1,0 +1,15 @@
+{
+  "archives": [
+    {
+      "input": "Aquaventura.lha",
+      "output": "AquaventuraEnhanced-{version}-{date}.lha",
+      "replace": {
+        "AquaventuraHD/Aquaventura.slave": "build:Aquaventura",
+        "AquaventuraHD/Aquaventura.readme": "release/ReadMe"
+      },
+      "add": {},
+      "remove": [],
+      "source": {"dir": "AquaventuraHD/src", "variants": ["Aquaventura"]}
+    }
+  ]
+}
