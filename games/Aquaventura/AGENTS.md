@@ -8,7 +8,8 @@ the machine allows). The original slave is by Bored Seal and StingRay (game.conf
 The repository's rules and shared docs are in the root `AGENTS.md` and `docs/index.md`;
 this file and `docs/` here hold only what is specific to this game.
 
-Read `docs/open-work.md` first.
+Version 2.0b is not published: `docs/open-work.md`, "Not published", has the decision and
+its reasons. Read `docs/open-work.md` first.
 
 | Doc | Read it for |
 |---|---|

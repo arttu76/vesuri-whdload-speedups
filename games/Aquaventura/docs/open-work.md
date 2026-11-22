@@ -5,12 +5,38 @@ Aquaventura Enhanced 2.0b (22.11.2026) on Bored Seal's and StingRay's v1.3 slave
 (the A500's average pace, CUSTOM2) and draws frames between the steps with the movement
 scaled to their time ([internals](internals.md#enhanced-framerate-custom1)). It needs a
 68020 or better and 108 KB of ExpMem. Without CUSTOM1 the slave is v1.3. `make dist`
-builds `AquaventuraEnhanced-2.0b-20261122.lha`. The release is not published.
+builds `AquaventuraEnhanced-2.0b-20261122.lha`. The release is not published, and the
+current decision is not to publish it ([Not published](#not-published)).
 
-Tested in the emulator only: the pace and the frame rates on five setups
+Tested in the emulator: the pace and the frame rates on five setups
 ([internals](internals.md#measurements)), the frames between over levels 1 to 7 with
-`tools/verify.sh`, the release build's intro and title. Not tested: play with a joystick,
-the tunnel by eye, real hardware.
+`tools/verify.sh`, the release build's intro and title. On real hardware it was started
+once (an A600 with a Furia). Not tested: longer play with a joystick, the tunnel by eye.
+
+## Not published
+
+Decided on 22.11.2026 after the first test on real hardware: this release is not published,
+and no pull request is made for it. The commits stay on the `aquaventura` branch so that
+someone can return to the work.
+
+- The test: the owner's A600 with a Furia (68020 at about 37 MHz), the release slave with
+  `CUSTOM1=1`. The game ran, and the option was on. The owner judged the gain in smoothness
+  as possibly there but small.
+- The emulator's best case for that class of machine is a doubling, 8-9 to 16.7 frames a
+  second ([internals](internals.md#measurements)). A pass is still about 2.3 fields of
+  work there: the game's data stays in chip memory, the lines and wide spans wait for the
+  blitter, and the swap waits for the display. A faster CPU does not shorten those.
+- The changes go deep for that gain: the game's code is relocated, state is saved and
+  restored around extra frames, and code that changes itself has to be found case by case.
+  Such changes fail in places that no test reached (later levels, rare situations), and
+  the tests so far are emulator runs without a player.
+- The result is better on faster machines in the emulator (25 frames a second on a 68030,
+  50 on a 68060). That is the case for returning to it.
+
+To return to it, start with the candidates below (they bring the Furia class to 25 frames a
+second if a pass gets under 2 fields), then do the play-tests under "Before a first release".
+The first two commits of the branch (the v1.3 source import and the repository layout, with
+the IPF decoder) change no behaviour and can be used without the rest.
 
 ## Before a first release
 

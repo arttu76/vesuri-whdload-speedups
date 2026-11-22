@@ -117,3 +117,7 @@ picture; find it with `RELOCS_EXCL`.
   and 124 KB start.
 - The profile of a 68030 setup records no instructions. Profile on a 68020 setup.
 - FS-UAE watchpoints with a condition are too slow to reach a later level.
+- A `Config=` tooltype in the game's icon replaces the slave's `ws_config`. An icon with
+  `Config=BW` shows only ButtonWait in the splash window, whatever the slave declares.
+  WHDLoad adds such a tooltype itself when a slave without `ws_config` reads ButtonWait.
+  The emulator boots here pass the options on the command line and never read an icon.
