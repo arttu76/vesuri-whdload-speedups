@@ -1,10 +1,11 @@
-Short : HD-Installer for Aquaventura V1.3
+Short : HD-Installer for Aquaventura Enhanced V2.0b
 Type : game/patch
 Author : Bored Seal, StingRay
 
 This patch applies to "Aquaventura" by Psygnosis (c) 1992 - 2 disks.
-Slave requires WHDLOAD V10+, install requires RawDIC.
+Slave requires WHDLOAD V17+, install requires RawDIC.
 Game requires 0.5 MB Chip RAM (+ 2.0 MB other RAM for PRELOAD option)
+Enhanced framerate requires a 68020 or better and 108 KB more Fast RAM
 
 FEATURES:
 - Full load from HD
@@ -12,8 +13,20 @@ FEATURES:
 - ButtonWait tooltype added for title picture and Psygnosis logo
 - NI/ROM icon (created by JHZ)
 - Quit option (your default key)
+- Enhanced framerate (CUSTOM1=1, on in the supplied icon): the game runs at
+  the speed of an A500 and draws up to 50 frames a second with smooth
+  movement, as fast as the Amiga allows
+- Game speed (CUSTOM2, with Enhanced framerate): 0 = 6 fields a game step
+  (an A500 on average), 1 = 5 fields (faster), 2 = 7 fields, 3 = 8 fields
 
 HISTORY:
+V2.0b (22.11.2026) - new option Enhanced framerate (CUSTOM1), on in the
+                     supplied icon: the game's code runs from Fast RAM, the
+                     game steps at the speed of an A500, and the frames that
+                     fit between two steps show the movement in between
+                   - new option Game speed (CUSTOM2)
+                   - without CUSTOM1 the game runs as with V1.3
+                   - requires WHDLoad 17 or newer
 V1.0 (13-Aug-2000) - first public release
 V1.1 (22-Oct-2000) - CACR operation removed (thanks to Mr.Larmer for report)
 V1.2 (29-Jun-2006) - disk access removed (2x), taglist termination fixed to

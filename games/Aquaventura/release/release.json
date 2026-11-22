@@ -9,7 +9,20 @@
       },
       "add": {},
       "remove": [],
-      "source": {"dir": "AquaventuraHD/src", "variants": ["Aquaventura"]}
+      "source": {
+        "dir": "AquaventuraHD/src",
+        "variants": [
+          "Aquaventura"
+        ]
+      },
+      "tooltypes": {
+        "AquaventuraHD/Aquaventura.inf": [
+          "CUSTOM1=1"
+        ],
+        "AquaventuraHD/Aquaventura.newicon": [
+          "CUSTOM1=1"
+        ]
+      }
     }
   ]
 }

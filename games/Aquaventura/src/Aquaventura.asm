@@ -23,7 +23,7 @@ _base		SLAVE_HEADER			;ws_Security + ws_ID
 		dc.w	0			;ws_DontCache
 		dc.b	0			;ws_keydebug
 		dc.b	$46			;ws_keyexit = Del
-		dc.l	0			;ws_ExpMem
+_expmem		dc.l	-EXPMEMSIZE		;ws_ExpMem: optional, WHDLoad writes its address here
 		dc.w	.name-_base		;ws_name
 		dc.w	.copy-_base		;ws_copy
 		dc.w	.info-_base		;ws_info
@@ -37,7 +37,9 @@ _base		SLAVE_HEADER			;ws_Security + ws_ID
 	dc.w	.config-_base	; ws_config
 
 
-.config	dc.b	"BW"
+.config	dc.b	"C1:B:Enhanced framerate;"
+	dc.b	"C2:L:Game speed:Normal,Faster,Slower,Slowest;"	;6, 5, 7, 8 fields a step
+	dc.b	"BW;"
 	dc.b	0
 
 
@@ -48,7 +50,8 @@ _base		SLAVE_HEADER			;ws_Security + ws_ID
 .name		dc.b	"Aquaventura",0
 .copy		dc.b	"1992 Psygnosis",0
 .info		dc.b	"installed & fixed by Bored Seal & StingRay",10
-		dc.b	"V1.3 (22-Dec-2012)",0
+		dc.b	"Version 2.0b (22.11.2026)",0
+		dc.b	"$VER: Aquaventura 2.0b (22.11.2026)",0
 		even
 
 Patch		lea	(_resload,pc),a1
@@ -169,7 +172,8 @@ PatchGame	move.l	#$70004e75,d0
 
 
 
-PatchMenu	move.l	#$3b6e0002,$23834	;snoopfix
+PatchMenu	bsr	_gamecrc		;before the patches at $8000-$22fff
+		move.l	#$3b6e0002,$23834	;snoopfix
 
 
 ; stingray, v1.3
@@ -178,9 +182,33 @@ PatchMenu	move.l	#$3b6e0002,$23834	;snoopfix
 	move.l	(a7)+,$4ef0+2.w
 	move.w	#$4e71,$4ef0+6.w
 
+	IFD	AUTOFIRE
+	pea	_autofire(pc)
+	move.w	#$4eb9,$3ff0.w
+	move.l	(a7)+,$3ff0+2.w
+	move.w	#$4e71,$3ff0+6.w
+	st	$22fe0			;the cheat: infinite energy, L and T skip
+	lea	_firetest(pc),a0
+	lea	$1bf3c,a1
+	bsr.b	.fire
+	lea	$22776,a1
+	bsr.b	.fire
+	lea	$22d16,a1
+	bsr.b	.fire
+	bra.b	.go
+.fire	move.w	#$4eb9,(a1)+
+	move.l	a0,(a1)+
+	move.w	#$4e71,(a1)+
+	rts
+.go
+	ENDC
+
+	bsr	_enhance		;Enhanced framerate (CUSTOM1), src/enhance.s
+	move.l	_stack(pc),d0
+	beq.b	.chipsp
+	movea.l	d0,a7
+.chipsp
 		jmp	$3b58.w
-
-
 
 .QuitPatch
 	move.l	#$3d6a,$68.w		; original code
@@ -299,7 +327,30 @@ PicWait		movem.l	d0-d7/a0-a6,-(sp)
 .ButtonPressed	movem.l	(sp)+,d0-d7/a0-a6
 		rts
 
+; test builds: the fire button pressed for 8 fields in every 128
+	IFD	AUTOFIRE
+_autofire	move.l	a0,-(a7)
+		lea	(_firecnt,pc),a0
+		addq.w	#1,(a0)
+		movea.l	(a7)+,a0
+_firetest	move.l	d0,-(a7)
+		moveq	#$78,d0
+		and.w	(_firecnt,pc),d0
+		movem.l	(a7)+,d0	;keeps the flags
+		rts
+_firecnt	dc.w	0
+	ENDC
+
 _resload	dc.l	0
 psyfile		dc.l	0
 _tags		dc.l	WHDLTAG_BUTTONWAIT_GET
-button		dc.l    0,0
+button		dc.l    0
+		dc.l	WHDLTAG_CUSTOM1_GET
+_custom1	dc.l	0
+		dc.l	WHDLTAG_CUSTOM2_GET
+_custom2	dc.l	0
+		dc.l	WHDLTAG_ATTNFLAGS_GET
+_attn		dc.l	0
+		dc.l	0
+
+	INCLUDE	enhance.s
